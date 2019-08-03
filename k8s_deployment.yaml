@@ -1,0 +1,27 @@
+# A sample for a Deployment in a Kubernetes cluster.
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: flask-app
+  labels:
+    app: flask-app
+  annotations:
+    repository: https://github.com/dpshenoy/hello_gunicorn
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+      - name: app
+        image: <AN IMAGE REPOSITORY WOULD GO HERE>
+        imagePullPolicy: Always
+        env:
+          - name: API_WORKERS
+            value: "4"
+          - name: API_ACCESSLOG
+            value: "-"
+        command: ["gunicorn", "-c", "conf/gunicorn.py", "app:app"]
