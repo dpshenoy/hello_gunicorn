@@ -7,7 +7,8 @@ RUN apt-get update \
 
 ADD requirements.pip /requirements.pip
 
-RUN pip install -r /requirements.pip 
+RUN pip install pip --upgrade \
+    && pip install -r /requirements.pip
 
 ADD ./app /app
 
